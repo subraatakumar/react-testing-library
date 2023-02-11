@@ -376,25 +376,29 @@ It is a software development process relying on software requirements being conv
 // CommentForm.test.js
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import CommentForm from "./CommentForm";
 
-describe("<CommentForm />", () => {
-  it("initial render testing", () => {
-    render(<CommentForm />);
-    const commentInput = screen.getByRole("textbox");
-    expect(commentInput).toBeInTheDocument();
-    const checkbox = screen.getByLabelText("i agree to terms and conditions", {
-      exact: false,
-    });
-    expect(checkbox).toBeInTheDocument();
-    const submitButton = screen.getByRole("button", {
-      name: "comment",
-      exact: false,
-    });
-    expect(submitButton).toBeDisabled();
-  });
+test("comment form should have textbox", () => {
+  render(<CommentForm />);
+  expect(screen.getByRole("textbox")).toBeInTheDocument();
 });
+test("comment form should have terms and condition", () => {
+  render(<CommentForm />);
+  expect(
+    screen.getByLabelText("i agree to terms and conditions", { exact: false })
+  ).toBeInTheDocument();
+});
+test("comment form should have submit button", () => {
+  render(<CommentForm />);
+  const submit = screen.getByRole("button", { name: "button", exact: false });
+  expect(submit).toBeInTheDocument();
+});
+test("comment form submit button should be disabled.", () => {
+  render(<CommentForm />);
+  const submit = screen.getByRole("button", { name: "button", exact: false });
+  expect(submit).toBeDisabled();
+});
+
 ```
 
 ## Multiple Elements
